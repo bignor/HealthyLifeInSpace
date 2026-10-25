@@ -2,7 +2,7 @@ import streamlit as st  # Imports Streamlit with the short name "st" for use in 
 
 
 
-print("The three most imporantt thing with the resource of water is knowing what machine does what")
+print("The three most imporant thing with the resource of water is knowing what machine does what")
 print("Urine machine take pee and separtes air from liquid, while its gets spun and heated to remove the water from the urine, leaving behind a dry waste.")
 print("Air machine is running 24/7 and is used to pull all the breths and sweat moisture right out of the air")
 print("Cleaner machine holds all the dirty water in one tank. A chemical filter for salts and smells, a hot reactor that burns up any germs, soap, or leftovers, and final filter so it tastes normal")

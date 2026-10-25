@@ -1,5 +1,6 @@
 import streamlit as st
-#from game_logic import start_game_logic
+
+from game_logic import new_game, simulate_day, get_warning, storm_active, forecast, check_result
 
 
 #Display messages
@@ -81,11 +82,60 @@ st.subheader("Generator Rules")
 st.write("Oxygen Generator: Produces 10 kg of oxygen per day using 20 liters of water and 30 kWh of power")
 st.write("Water Recycler: This recovers 5 liters of water per day")
 
+#saving the starting game
+if "game_state" not in st.session_state:
+    st.session_state.game_state = new_game()
+
+if "result" not in st.session_state or isinstance(st.session_state.result, bool):
+    st.session_state.result = {
+        "status": "playing",
+        "reason": "Mission ongoing." 
+    }
+
+
+#disabling the next day if the saved status is not playing
+if st.button("Next Day", disabled= st.session_state.result["status"] != "playing"):
+
+    #sending the players choices into the calculations
+    st.session_state.game_state["generator_on"] = st.session_state.generator_on
+    st.session_state.game_state["recyler_on"] = st.session_state.recycler_on
 
 
 
+    #taking my current game and caulating the day
+    new_state, report = simulate_day(st.session_state.game_state)
+
+    st.session_state.game_state = new_state #savign the progress
 
 
+    #checking to see if you won, lost, or still playing the game
+    st.session_state.result = check_result(st.session_state.game_state, report)
+    st.rerun()
+
+ 
+st.subheader("Storm Warning")
+
+#storing the messsage for current game
+warning_state = get_warning(st.session_state.game_state)
+#displaying if it happends
+if warning_state:
+    st.write(warning_state)
+
+st.subheader("Forecast")
+forecast_state = forecast(st.session_state.game_state)
+#displaying if it happends
+if forecast_state:
+    st.write(f"Resource at risk: {forecast_state['resource']}. Predicted day: {forecast_state['day']}. ")
+
+
+def reset_state():
+    st.session_state.game_state = new_game()
+    st.session_state.result = {"status": "playing", "reason": "Mission ongoing."}
+    st.session_state.generator_on = st.session_state.game_state["generator_on"]
+    st.session_state.recycler_on = st.session_state.game_state["recycler_on"]
+    
+
+st.button("Reset Mission", on_click=reset_state)
 
 
 
