@@ -30,10 +30,16 @@ st.divider()
 #allowing you to open and close the instructions
 with st.expander("📖 How to play"):
 
-    st.write("Choose only 1 resource per day.")
-    st.write("You can't choose the same resource two days in a row.")
-    st.write("The emergency supplies uses up your resources leaving you with less for the next days.")
-    st.write("Watch your resource bars they will show the length of what you have left")
+    st.write("Keep all 4 astronaunts supplied for 7 days.")
+    st.write("Use the switches to turn the oxygen generator ansd water recycler on or off")
+    st.write("The generator produces oxygen but uses water and power")
+    st.write("The recylcer recovers water.")
+    st.write("The crew uses oxygen, water, and power every day.")
+    st.write("Dust storms reduce solar power so plan ahead.")
+    st.write("Click Next Day to apply your equipment choices and advance on day.")
+    st.write("You by completing all seven days with the crews needs meeet.")
+    st.write("You lose if there is not enough resources to meet the crews needs.")
+    st.write("Click Reset Mission to try again.")
 
 #Setting up the days to choose from
 
@@ -41,31 +47,6 @@ with st.expander("📖 How to play"):
 DAYS = [ "Sunday", "Monday", "Tuesday", "Wednesday",
          "Thursday", "Friday", "Saturday"]
 
-# Tracking the variable 
-if "days_progress" not in st.session_state:
-    st.session_state.days_progress = 0 #Starting from sunday
-
-RESOURCES = ["Water", "Power", "Oxygen"]
-
-if "water" not in st.session_state:
-    st.session_state.water = 10
-
-if "power" not in st.session_state:
-    st.session_state.power = 10
-
-if "oxygen" not in st.session_state:
-    st.session_state.oxygen = 10
-
-option = st.selectbox("What is your resource?", RESOURCES, key="my_choice")
-
-st.write(f"You selected: {st.session_state.my_choice}")
-
-#tracking dust storm
-if "storm" not in st.session_state:
-    st.session_state.storm = 1
-
-if "result" not in st.session_state:
-    st.session_state.result = False
 
 # displaying the amount of usuage
 if "game_state" not in st.session_state:
@@ -183,6 +164,50 @@ def reset_state():
     
 
 st.button("Reset Mission", on_click=reset_state)
+
+with st.expander("🔬 Science Behind the Mission"):
+    st.subheader("💧 Recycling water")
+    st.write(
+        "Space-station life-support systems recover and clean water "
+        "from wastewater and moisture collected from the air. "
+        "Reusing water reduces the supplies needed from Earth."
+    )
+
+    st.subheader("💨 Making oxygen")
+    st.write(
+        "The International Space Station uses electricity to split "
+        "water into oxygen and hydrogen. Our generator demonstrates "
+        "why oxygen production depends on both water and power."
+    )
+
+    st.subheader("☀️ Energy and dust storms")
+    st.write(
+        "Solar panels convert sunlight into electricity. "
+        "Dust can reduce the power available to solar-powered "
+        "missions on Mars. Our game models this by reducing "
+        "solar production during a dust storm."
+    )
+
+    st.subheader("Our game model")
+    st.write(
+        "Habitat Hero is an educational simulation inspired by real "
+        "life-support systems. Resource amounts, equipment rates, "
+        "and storm timing are simplified assumptions for gameplay."
+    )
+    st.write(
+        "The game tracks oxygen, water, and power. Real habitats "
+        "also need systems for food, temperature, cabin pressure, "
+        "and carbon dioxide removal."
+    )
+
+    st.markdown(
+        "[NASA: Life Support Systems]"
+        "(https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/)"
+    )
+    st.markdown(
+        "[NASA: Mars Rover Power]"
+        "(https://science.nasa.gov/resource/mars-rover-power/)"
+    )
 
 
 
