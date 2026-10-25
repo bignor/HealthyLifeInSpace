@@ -13,8 +13,8 @@ CREW = 4
 DAYS = 7
 
 #unit definitions Oxygen: kg, Water: liters, Power: kWh
-MAX_STORAGE = {"oxygen": 100.00, "water": 200.00, "power": 500.00}
-INITIAL_STORAGE = {"oxygen": 10.00, "water": 100.00, "power": 250.00}
+MAX_STORAGE = {"oxygen": 12.00, "water": 60.00, "power": 180.00}
+INITIAL_STORAGE = {"oxygen": 12.00, "water": 60.00, "power": 180.00}
 
 OXYGEN_PER_CREW_PER_DAY = 0.50  # kg per crew member per day
 WATER_PER_CREW_PER_DAY = 2.00  # liters per crew member per day
