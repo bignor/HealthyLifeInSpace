@@ -18,5 +18,76 @@ st.write("The emergency supplies uses up your resources leaving you with less fo
 st.write("Watch your resource bars they will show the length of what you have left")
 
 #Setting up the days to choose from
-#if "day_progress" not in st.session_state:
+
+#Progress of days
+DAYS = [ "Sunday", "Monday", "Tuesday", "Wednesday",
+         "Thursday", "Friday", "Saturday"]
+
+# Tracking the variable 
+if "days_progress" not in st.session_state:
+    st.session_state.days_progress = 0 #Starting from sunday
+
+RESOURCES = ["Water", "Power", "Oxygen"]
+
+if "water" not in st.session_state:
+    st.session_state.water = 10
+
+if "power" not in st.session_state:
+    st.session_state.power = 10
+
+if "oxygen" not in st.session_state:
+    st.session_state.oxygen = 10
+
+option = st.selectbox("What is your resource?", RESOURCES, key="my_choice")
+
+st.write(f"You selected: {st.session_state.my_choice}")
+
+#tracking dust storm
+if "storm" not in st.session_state:
+    st.session_state.storm = 1
+
+if "result" not in st.session_state:
+    st.session_state.result = False
+
+
+#this displays the day and what is stored in that value
+st.write(DAYS[st.session_state.days_progress])
+
+# displaying the amount of usuage
+st.write("Resource Amounts")
+
+#progress shows us the bar resource level
+#metric gives the number amount that is left
+progress_text = "Water Remaining"
+st.metric(label="Water Remaining", value = st.session_state.water)
+my_bar = st.progress(st.session_state.water * 10, text=progress_text)
+
+
+progress_text = "Power Remaining"
+st.metric(label= "Power Remaning", value = st.session_state.power)
+my_bar = st.progress(st.session_state.power * 10, text=progress_text)
+
+progress_text = "Oxygen Remaining"
+st.metric(label= "Oxygen Remaining", value = st.session_state.oxygen)
+my_bar = st.progress(st.session_state.oxygen * 10, text=progress_text)
+
+
+#toggle stores true or false its our switch
+st.toggle(label="Oxygen Generator", key= "generator_on")
+
+st.toggle(label="Water Recycler", key="recycler_on")
+
+st.subheader("Generator Rules")
+st.write("Oxygen Generator: Produces 10 kg of oxygen per day using 20 liters of water and 30 kWh of power")
+st.write("Water Recycler: This recovers 5 liters of water per day")
+
+
+
+
+
+
+
+
+
+
 
